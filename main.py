@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 window = tk.Tk()
 window.title("Крестики-нолики")
-window.geometry("270x264")
+window.geometry("270x284")
 
 current_player = "X"
 buttons = []
@@ -20,6 +20,13 @@ def check_winner():
         return True
 
     return False
+
+def reset_game():
+    global current_player
+    current_player = "X"
+    for row in buttons:
+        for button in row:
+            button['text'] = ""
 
 def on_click(row, col):
     global current_player
@@ -38,9 +45,12 @@ def on_click(row, col):
 for i in range(3):
     row = []
     for j in range(3):
-        btn = tk.Button(window, text="", font=("Arial", 20), width=5, height=2, command=lambda r=i, c=j: on_click(r, c))
+        btn = tk.Button(window, text="", font=("Arial", 15), width=5, height=2, command=lambda r=i, c=j: on_click(r, c))
         btn.grid(row=i, column=j)
         row.append(btn)
     buttons.append(row)
+
+reset_button = tk.Button(window, text="Новая игра", font=("Arial", 12),command=reset_game)
+reset_button.grid(row=3, columnspan=3, pady=(10, 0))
 
 window.mainloop()
