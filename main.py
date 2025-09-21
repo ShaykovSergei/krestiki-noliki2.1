@@ -8,6 +8,13 @@ window.geometry("270x284")
 current_player = "X"
 buttons = []
 
+def is_board_full():
+    for row in buttons:
+        for button in row:
+            if button["text"] == "":
+                return False
+    return True
+
 def check_winner():
     for i in range(3):
         if buttons[i][0]["text"] == buttons[i][1]["text"] == buttons[i][2]["text"] != "":
@@ -38,6 +45,8 @@ def on_click(row, col):
 
     if check_winner():
         messagebox.showinfo("Игра окончена", f"Игрок {current_player} победил!")
+    elif is_board_full():
+        messagebox.showinfo("Ничья", "Все клетки заняты. Ничья!")
 
     current_player = "0" if current_player == "X" else "X"
 
