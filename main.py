@@ -5,8 +5,13 @@ window = tk.Tk()
 window.title("Крестики-нолики")
 window.geometry("270x284")
 
-current_player = "X"
+current_player = None
 buttons = []
+
+def choose_player_symbol():
+    global current_player
+    result = messagebox.askyesno("Выбор символа", "Вы хотите играть крестиками?")
+    current_player = "X" if result else "O"
 
 def is_board_full():
     for row in buttons:
@@ -30,7 +35,7 @@ def check_winner():
 
 def reset_game():
     global current_player
-    current_player = "X"
+    choose_player_symbol()
     for row in buttons:
         for button in row:
             button['text'] = ""
@@ -50,6 +55,7 @@ def on_click(row, col):
 
     current_player = "0" if current_player == "X" else "X"
 
+choose_player_symbol()
 
 for i in range(3):
     row = []
